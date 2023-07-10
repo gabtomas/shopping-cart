@@ -30,11 +30,24 @@ export function useShoppingCart() {
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const [cartItems, setCartItems] = useState<CartItem[]>([]); //state to store cart items
 
+    //variable for open and close cart
+    const [isCartOpen, setIsCartOpen] = useState(false);
+
     //count total quantity of items in cart
     const cartQuantity = cartItems.reduce(
         (quantity, item) => item.quantity + quantity,
         0 //initial value of quantity
     ); //reduce cart items to get total quantity
+
+    //function to open cart
+    function openCart() {
+        setIsCartOpen(true);
+    }
+
+    //function to close cart
+    function closeCart() {
+        setIsCartOpen(false);
+    }
 
     function getItemQuantity(id: number) {
         return cartItems.find((item) => item.id === id)?.quantity ?? 0; //optional chaining operator //if item is not found, return 0
@@ -85,6 +98,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
                 increaseCartQuantity,
                 decreaseCartQuantity,
                 removeItemFromCart,
+                openCart,
+                closeCart,
                 cartItems,
                 cartQuantity,
             }}
