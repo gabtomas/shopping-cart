@@ -1,5 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 import { formatCurrency } from "../utilities/formatCurrency";
+import { useShoppingCart } from "../context/ShoppingCartContext"; //import useShoppingCart hook from ShoppingCartContext.tsx
 
 type StoreItemProps = {
     id: number;
@@ -9,7 +10,14 @@ type StoreItemProps = {
 };
 
 export function StoreItem({ id, name, price, imgUrl }: StoreItemProps) {
-    const quantity = 0;
+    const {
+        getItemQuantity,
+        increaseCartQuantity,
+        decreaseCartQuantity,
+        removeItemFromCart,
+    } = useShoppingCart();
+
+    const quantity = getItemQuantity(id);
 
     return (
         <Card className="h-100">
@@ -48,9 +56,7 @@ export function StoreItem({ id, name, price, imgUrl }: StoreItemProps) {
                                 </div>
                                 <Button>+</Button>
                             </div>
-                            <Button variant="danger" size="small">
-                                Remove
-                            </Button>
+                            <Button variant="danger">Remove</Button>
                         </div>
                     )}
                 </div>
