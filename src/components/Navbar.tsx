@@ -1,7 +1,12 @@
 import { Button, Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
+import { StoreItem } from "../components/StoreItem";
+
 export function Navbar() {
+    //get quantity from useShoppingCart hook using getItemQuantity function
+    const { getItemQuantity } = useShoppingCart();
+
     return (
         <NavbarBs className="bg-white shadow-sm mb-3">
             <Container>
@@ -43,7 +48,7 @@ export function Navbar() {
                             transform: "translate(25%, 25%)",
                         }}
                     >
-                        3
+                        {getItemQuantity}
                     </div>
                 </Button>
             </Container>
